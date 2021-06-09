@@ -163,26 +163,24 @@ int main(void)
             close(socket_fd);
 
             // get time for file name
-            // struct timespec spec;
+            struct timespec spec;
             char rfname[SERV_PARAM_FILE_NAME];
-            // char rftime[SERV_PARAM_TIME_DIGITS];
+            char rftime[SERV_PARAM_TIME_DIGITS];
 
             memset(&rfname, 0, sizeof(rfname));
-            // memset(&rftime, 0, sizeof(rftime));
+            memset(&rftime, 0, sizeof(rftime));
 
-            // // create timestamp string
-            // clock_gettime(CLOCK_REALTIME, &spec);
-            // spec.tv_nsec %= SERV_PARAM_TIME_DIV;
-            // sprintf(rftime, "%lu", spec.tv_nsec);
+            // create timestamp string
+            clock_gettime(CLOCK_REALTIME, &spec);
+            spec.tv_nsec %= SERV_PARAM_TIME_DIV;
+            sprintf(rftime, "%lu", spec.tv_nsec);
 
-            // // create file name string like "\home\%USER%\receive_xxxxxx.txt"
-            // strcpy(rfname, "/home/");
-            // strcat(rfname, getlogin());
-            // strcat(rfname, "/receive_");
-            // strcat(rfname, rftime);
-            // strcat(rfname, ".txt");
-
-            strcpy(rfname, "/tmp/test.txt");
+            // create file name string like "\home\%USER%\receive_xxxxxx.txt"
+            strcpy(rfname, "/home/");
+            strcat(rfname, getlogin());
+            strcat(rfname, "/receive_");
+            strcat(rfname, rftime);
+            strcat(rfname, ".txt");
 
             // create new file
             FILE *fp = NULL;
